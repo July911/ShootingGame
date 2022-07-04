@@ -63,12 +63,24 @@ class GameScene: SKScene {
         bullet.physicsBody?.isDynamic = false
         bullet.name = "BulletNode"
         self.bullet = bullet
+        
+        self.moveBulletToRight()
         self.addChild(self.bullet!)
     }
     
-    func resetGame() {
+    private func resetGame() {
         self.isAlive = true
         self.score = 0
+    }
+    
+    private func moveBulletToRight() {
+        let moveForward = SKAction.moveTo(
+            x: 600,
+            duration: 0.6
+        )
+        let destroy = SKAction.removeFromParent()
+        
+        bullet?.run(SKAction.sequence([moveForward, destroy]))
     }
     
     func touchDown(atPoint pos : CGPoint) {
