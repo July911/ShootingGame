@@ -12,7 +12,7 @@ class GameScene: SKScene {
     
     private var player: SKSpriteNode?
     private var bullet: SKSpriteNode?
-    private var enemy: SKSpriteNode?
+    private var cloud: SKSpriteNode?
     
     private var touchLocation: CGPoint?
     private var isAlive = true
@@ -43,7 +43,7 @@ class GameScene: SKScene {
         self.addChild(self.player!)
     }
     
-    func configureBullet() {
+    func spawnBullet() {
         guard let bullet = SKSpriteNode(fileNamed: "arror") else {
             return
         }
@@ -57,15 +57,41 @@ class GameScene: SKScene {
         )
         bullet.physicsBody = SKPhysicsBody(rectangleOf: bullet.size)
         bullet.physicsBody?.affectedByGravity = false
-        bullet.physicsBody?.categoryBitMask = UInt32(0)
+        bullet.physicsBody?.categoryBitMask = UInt32(1)
         bullet.physicsBody?.contactTestBitMask = UInt32(2)
         bullet.physicsBody?.allowsRotation = false
-        bullet.physicsBody?.isDynamic = false
+        bullet.physicsBody?.isDynamic = true
         bullet.name = "BulletNode"
+        bullet.zPosition = -1
         self.bullet = bullet
         
         self.moveBulletToRight()
         self.addChild(self.bullet!)
+    }
+    
+    func spawnCloud() {
+        guard let cloud = SKSpriteNode(fileNamed: "cloud")
+        else {
+            return
+        }
+        cloud.size = CGSize(
+            width: self.size.width / 10,
+            height: self.size.height / 5
+        )
+        //TODO: 수정 필요 
+        cloud.position = CGPoint(
+            x: self.frame.minX + 40,
+            y: self.frame.midY
+        )
+        cloud.physicsBody = SKPhysicsBody(rectangleOf: cloud.size)
+        cloud.physicsBody?.affectedByGravity = false
+        cloud.physicsBody?.categoryBitMask = UInt32(2)
+        cloud.physicsBody?.contactTestBitMask = UInt32(1)
+        cloud.physicsBody?.allowsRotation = false
+        cloud.physicsBody?.isDynamic = false
+        cloud.name = "PlayerNode"
+        self.cloud = cloud
+        self.addChild(self.cloud!)
     }
     
     private func resetGame() {
