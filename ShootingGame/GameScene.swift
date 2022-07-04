@@ -29,8 +29,8 @@ class GameScene: SKScene {
         player.position = CGPoint(x: self.frame.minX + 40, y: self.frame.midY)
         player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
         player.physicsBody?.affectedByGravity = false
-        player.physicsBody?.categoryBitMask = UInt32(1)
-        player.physicsBody?.contactTestBitMask = UInt32(3)
+        player.physicsBody?.categoryBitMask = UInt32(0)
+        player.physicsBody?.contactTestBitMask = UInt32(2)
         player.physicsBody?.allowsRotation = false
         player.physicsBody?.isDynamic = false
         player.name = "PlayerNode"
